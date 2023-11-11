@@ -1,10 +1,11 @@
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Noto_Sans_KR({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "ExpandMemo",
@@ -41,6 +42,7 @@ export default function RootLayout({
                         disableTransitionOnChange
                         storageKey="memo-theme"
                     >
+                        <Toaster position="bottom-center" />
                         {children}
                     </ThemeProvider>
                 </ConvexClientProvider>
