@@ -1,18 +1,27 @@
 "use client";
 
 import { useRef, ElementRef, useState, useEffect } from "react";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import {
+    ChevronsLeft,
+    MenuIcon,
+    PlusCircle,
+    Search,
+    Settings,
+} from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { usePathname } from "next/navigation";
-import { useQuery } from "convex/react";
+import { useMutation } from "convex/react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { api } from "@/convex/_generated/api";
 import { UserItem } from "./user-item";
+import { Item } from "./item";
+import { DocumentList } from "./document-list";
 
 export const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
-    const documents = useQuery(api.documents.get);
+    const create = useMutation(api.documents.create);
 
     const isResizeingRef = useRef(false);
     const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -98,6 +107,16 @@ export const Navigation = () => {
         }
     };
 
+    const handleCreate = () => {
+        const promise = create({ title: "제목없음" });
+
+        toast.promise(promise, {
+            loading: "메모를 작성하는 중입니다",
+            success: "메모를 작성했습니다",
+            error: "메모를 작성하는 중에 오류가 발생했습니다",
+        });
+    };
+
     return (
         <>
             <aside
@@ -120,11 +139,21 @@ export const Navigation = () => {
                 </div>
                 <div>
                     <UserItem />
+                    <Item
+                        label="검색"
+                        icon={Search}
+                        isSearch
+                        onClick={() => {}}
+                    />
+                    <Item label="설정" icon={Settings} onClick={() => {}} />
+                    <Item
+                        onClick={handleCreate}
+                        label="새 메모"
+                        icon={PlusCircle}
+                    />
                 </div>
                 <div className="mt-4">
-                    {documents?.map((document) => (
-                        <p key={document._id}>{document.title}</p>
-                    ))}
+                    <DocumentList />
                 </div>
                 <div
                     onMouseDown={handleMouseDown}
