@@ -11,7 +11,7 @@ import {
     Trash,
 } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,7 @@ import { Navbar } from "./navbar";
 export const Navigation = () => {
     const settings = useSettings();
     const search = useSearch();
+    const router = useRouter();
     const params = useParams();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -122,7 +123,9 @@ export const Navigation = () => {
     };
 
     const handleCreate = () => {
-        const promise = create({ title: "제목없음" });
+        const promise = create({ title: "제목없음" }).then((documentId) =>
+            router.push(`/documents/${documentId}`)
+        );
 
         toast.promise(promise, {
             loading: "메모를 작성하는 중...",
