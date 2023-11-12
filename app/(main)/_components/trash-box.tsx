@@ -37,7 +37,7 @@ export const TrashBox = () => {
         const promise = restore({ id: documentId });
 
         toast.promise(promise, {
-            loading: "메모를 복구하는 중입니다.",
+            loading: "메모를 복구하는 중...",
             success: "메모가 복구되었습니다.",
             error: "메모를 복구하는 중에 오류가 발생했습니다.",
         });
@@ -47,9 +47,9 @@ export const TrashBox = () => {
         const promise = remove({ id: documentId });
 
         toast.promise(promise, {
-            loading: "메모를 영구삭제하는 중입니다.",
-            success: "메모가 영구삭제되었습니다.",
-            error: "메모를 영구삭제하는 중에 오류가 발생했습니다.",
+            loading: "메모를 영구삭제하는 중...",
+            success: "메모가 영구삭제 되었습니다.",
+            error: "메모를 영구삭제 하는 중에 오류가 발생했습니다.",
         });
 
         if (params.documentId === documentId) {

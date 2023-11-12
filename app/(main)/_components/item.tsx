@@ -60,9 +60,9 @@ export const Item = ({
         const promise = archive({ id });
 
         toast.promise(promise, {
-            loading: "메모를 삭제하는 중입니다",
-            success: "메모를 삭제했습니다",
-            error: "메모를 삭제하는 중에 오류가 발생했습니다",
+            loading: "메모를 휴지통으로 이동 중...",
+            success: "메모가 휴지통으로 이동되었습니다.",
+            error: "메모 이동에 실패했습니다.",
         });
     };
 
@@ -79,12 +79,12 @@ export const Item = ({
                 if (!expanded) {
                     onExpand?.();
                 }
-                // router.push(`/documents/${documentId}`);
+                router.push(`/documents/${documentId}`);
             }
         );
 
         toast.promise(promise, {
-            loading: "메모를 작성하는 중입니다",
+            loading: "메모를 작성하는 중...",
             success: "메모를 작성했습니다",
             error: "메모를 작성하는 중에 오류가 발생했습니다",
         });
