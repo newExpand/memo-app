@@ -21,12 +21,16 @@ import {
     PopoverTrigger,
     PopoverContent,
 } from "@/components/ui/popover";
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 import { UserItem } from "./user-item";
 import { Item } from "./item";
 import { DocumentList } from "./document-list";
 import { TrashBox } from "./trash-box";
 
 export const Navigation = () => {
+    const settings = useSettings();
+    const search = useSearch();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
     const create = useMutation(api.documents.create);
@@ -151,9 +155,13 @@ export const Navigation = () => {
                         label="검색"
                         icon={Search}
                         isSearch
-                        onClick={() => {}}
+                        onClick={search.onOpen}
                     />
-                    <Item label="설정" icon={Settings} onClick={() => {}} />
+                    <Item
+                        label="설정"
+                        icon={Settings}
+                        onClick={settings.onOpen}
+                    />
                     <Item
                         onClick={handleCreate}
                         label="새 메모"
