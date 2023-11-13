@@ -57,7 +57,7 @@ export const Item = ({
     const onArchive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
         if (!id) return;
-        const promise = archive({ id });
+        const promise = archive({ id }).then(() => router.push("/documents"));
 
         toast.promise(promise, {
             loading: "메모를 휴지통으로 이동 중...",
